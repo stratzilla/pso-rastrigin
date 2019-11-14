@@ -32,7 +32,7 @@ void PSO::performPSO() {
 	setBestInSwarmPos(swarm[0]->getPosition()); // the first will do
 	setBestInSwarmFit(swarm[0]->getFitness());
 	for (unsigned int i = 0; i <= getIterations(); i++) {
-		if (i % 1 == 0) { bestInRun(i); } // output epoch details every 10 epochs
+		if (i % 10 == 0) { bestInRun(i); } // output epoch details every 10 epochs
 		findBestInRun();
 		// the primary complex for changing particle params
 		for (unsigned int j = 0; j < swarm.getSwarmSize(); j++) {
@@ -104,8 +104,8 @@ void PSO::bestInRun(unsigned int i) {
 		avg += swarm[j]->getFitness();
 	}
 	avg /= swarm.getSwarmSize();
-	std::cout << i << " " << getBestInSwarmFit() << " " << avg << std::endl;
-	//std::cout << "Epoch " << i << ": best fitness is " << getBestInSwarmFit() << std::endl;
+	// (used to make graphs) std::cout << i << " " << getBestInSwarmFit() << " " << avg << std::endl;
+	std::cout << "Epoch " << i << ": best fitness is " << getBestInSwarmFit() << ", average is " << avg << std::endl;
 }
 
 /**
