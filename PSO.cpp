@@ -19,7 +19,7 @@ static double LOW = -5.12, HIGH = 5.12;
  */
 PSO::PSO(double w, double cA, double sA, unsigned int ss, unsigned int i, int r) {
 	weight = w; cogAcc = cA; socAcc = sA; iterations = i;
-	swarm.populateSwarm(LOW, HIGH, DIMENSIONS, ss); // make the swarm
+	swarm.populateSwarm(LOW, HIGH, DIMENSIONS, ss, r); // make the swarm
 	srand(r); // init random seed
 	printParams(r); // output params to user
 }
@@ -32,7 +32,7 @@ void PSO::performPSO() {
 	setBestInSwarmPos(swarm[0]->getPosition()); // the first will do
 	setBestInSwarmFit(swarm[0]->getFitness());
 	for (unsigned int i = 0; i <= getIterations(); i++) {
-		if (i % 10 == 0) { bestInRun(i); } // output epoch details every 10 epochs
+		if (i % 1 == 0) { bestInRun(i); } // output epoch details every 10 epochs
 		findBestInRun();
 		// the primary complex for changing particle params
 		for (unsigned int j = 0; j < swarm.getSwarmSize(); j++) {
@@ -99,7 +99,13 @@ void PSO::findBestInRun() {
  * @param i - the iteration
  */
 void PSO::bestInRun(unsigned int i) {
-	std::cout << "Epoch " << i << ": best fitness is " << getBestInSwarmFit() << std::endl;
+	double avg = 0.00;
+	for (int j = 0; j < swarm.getSwarmSize(); j++) {
+		avg += swarm[j]->getFitness();
+	}
+	avg /= swarm.getSwarmSize();
+	std::cout << i << " " << getBestInSwarmFit() << " " << avg << std::endl;
+	//std::cout << "Epoch " << i << ": best fitness is " << getBestInSwarmFit() << std::endl;
 }
 
 /**

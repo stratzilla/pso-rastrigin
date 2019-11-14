@@ -14,8 +14,10 @@ Swarm::Swarm() {}
  * @param l - the lower bound for dimension space
  * @param h - the upper bound
  * @param d - the dimensionality
+ * @param r - the random seed
  */
-void Swarm::populateSwarm(double l, double h, unsigned int d, unsigned int s) {
+void Swarm::populateSwarm(double l, double h, unsigned int d, unsigned int s, int r) {
+	srand(r);
 	for (unsigned int i = 0; i < s; i++) {
 		std::array<double, 30> vel;
 		std::array<double, 30> pos;

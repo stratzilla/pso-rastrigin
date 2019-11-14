@@ -1,6 +1,7 @@
 #pragma once
 #include "Particle.hpp"
 #include <vector>
+#include <stdlib.h>
 
 /**
  * Swarm class definition
@@ -14,7 +15,7 @@ class Swarm {
 		Swarm(); // constructor
 		
 		// member method
-		void populateSwarm(double, double, unsigned int, unsigned int);
+		void populateSwarm(double, double, unsigned int, unsigned int, int);
 		
 		// getter method
 		unsigned int getSwarmSize();

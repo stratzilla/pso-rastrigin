@@ -14,7 +14,7 @@ static int LOW = -5.12, HIGH = 5.12;
  */
 RandSearch::RandSearch(unsigned int numSamples, int r) {
 	// populate the particle list
-	particleList.populateSwarm(LOW, HIGH, DIMENSIONS, numSamples);
+	particleList.populateSwarm(LOW, HIGH, DIMENSIONS, numSamples, r);
 	// remind user of parameters used
 	printParams(r);
 }
