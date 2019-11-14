@@ -105,7 +105,7 @@ void PSO::bestInRun(unsigned int i) {
 	}
 	avg /= swarm.getSwarmSize();
 	// (used to make graphs) std::cout << i << " " << getBestInSwarmFit() << " " << avg << std::endl;
-	std::cout << "Epoch " << i << ": best fitness is " << getBestInSwarmFit() << ", average is " << avg << std::endl;
+	std::cout << "Epoch " << i << ": best fitness is " << getBestInSwarmFit() << ", avg is " << avg << std::endl;
 }
 
 /**
