@@ -62,9 +62,13 @@ After each iteration, every particle has their velocities, positions, and fitnes
 
 # Rastrigin Function
 
+The fitness of a particle is determined by the Rastrigin function. A particle's fitness is found by performing the below equation with its position as argument.
+
 <img src="https://latex.codecogs.com/png.latex?f%28x%29%20%3D%2010n_x%20&plus;%20%5Csum%5E%7Bn_x%7D_%7Bi%3D1%7D%20%28x_i%5E2%20-%2010%5Ccos%7B%282%5Cpi%20x_i%29%7D%29"/>
 
-Where <img src="https://latex.codecogs.com/png.latex?n_x"/> is the dimensionality of the problem, <img src="https://latex.codecogs.com/png.latex?x_i"/> is some position in the search space in the <img src="https://latex.codecogs.com/png.latex?i"/>th dimension and each <img src="https://latex.codecogs.com/png.latex?x_i%20%5Cin%20%5B-5.12%2C%205.12%5D">.
+Where <img src="https://latex.codecogs.com/png.latex?n_x"/> is the dimensionality of the problem, <img src="https://latex.codecogs.com/png.latex?x_i"/> is some position in the search space in the <img src="https://latex.codecogs.com/png.latex?i"/>th dimension and each <img src="https://latex.codecogs.com/png.latex?x_i%20%5Cin%20%5B-5.12%2C%205.12%5D">. An optimal solution to this function is <img src="https://latex.codecogs.com/png.latex?0"/>.
+
+After each epoch, the fitness of a particle is re-evaluation using this function and given enough epochs (and careful PSO parameters chosen as mentioned before), each particle will tend closer to the function minimum.
 
 # Performance
 
