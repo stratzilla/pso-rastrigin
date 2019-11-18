@@ -2,7 +2,7 @@
 #include "RandSearch.hpp"
 
 // in case of error (unlikely), use these values for PSO
-unsigned int SWARM_SIZE = 50;
+unsigned int SWARM_SIZE = 30;
 unsigned int ITERATIONS = 500;
 double OMEGA = 0.729844;
 double C_1 = 1.496180;
@@ -15,8 +15,8 @@ int RAN = 0;
  */
 void printHelp() {
 	std::cout << "\nCompile and execute the program as so:\n" << std::endl;
-	std::cout << " $ g++ source.cpp Particle.cpp PSO.cpp Swarm.cpp RandSearch.cpp -o pso" << std::endl;
-	std::cout << " $ ./pso <args>\n" << std::endl;
+	std::cout << " $ g++ source.cpp Particle.cpp PSO.cpp Swarm.cpp RandSearch.cpp -o psor" << std::endl;
+	std::cout << " $ ./psor <args>\n" << std::endl;
 	std::cout << "Where you can use two arguments:" << std::endl;
 	std::cout << " <arg1> - Premade Test" << std::endl;
 	std::cout << "	1. \u03C9 = 0.729844, c1 = c2 = 1.496180" << std::endl;
@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
 		// construct the PSO object
 		PSO p(OMEGA, C_1, C_2, SWARM_SIZE, ITERATIONS, RAN);
 		// and perform PSO search upon it
-		p.performPSO();
+		p.performSearch();
 	} else { // if random
 		// construct the RandomSearch object
 		RandSearch r(SWARM_SIZE * ITERATIONS, RAN);

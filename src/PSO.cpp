@@ -5,8 +5,8 @@
  */
 
 // to avoid magic numbers later, make these static
-static unsigned int DIMENSIONS = 30;
-static double LOW = -5.12, HIGH = 5.12;
+const static unsigned int DIMENSIONS = 30;
+const static double LOW = -5.12, HIGH = 5.12;
 
 /**
  * PSO class constructor
@@ -27,13 +27,13 @@ PSO::PSO(double w, double cA, double sA, unsigned int ss, unsigned int i, int r)
 /**
  * method to perform the PSO search with provided params
  */
-void PSO::performPSO() {
+void PSO::performSearch() {
 	// we need some placeholder for best place winners for vel and pos
-	setBestInSwarmPos(swarm[0]->getPosition()); // the first will do
-	setBestInSwarmFit(swarm[0]->getFitness());
+	swarm.setBestInSwarmPos(swarm[0]->getPosition()); // the first will do
+	swarm.setBestInSwarmFit(swarm[0]->getFitness());
 	for (unsigned int i = 0; i <= getIterations(); i++) {
 		if (i % 10 == 0) { bestInRun(i); } // output epoch details every 10 epochs
-		findBestInRun();
+		swarm.findBestInRun();
 		// the primary complex for changing particle params
 		for (unsigned int j = 0; j < swarm.getSwarmSize(); j++) {
 			std::array<double, 30> newPosition; // new particle position 
@@ -48,7 +48,7 @@ void PSO::performPSO() {
 				double cog = getCogAcc() * (double)(rand() / (double)(RAND_MAX));
 				double soc = getSocAcc() * (double)(rand() / (double)(RAND_MAX));
 				cog *= (swarm[j]->getBestPosition()[k] - swarm[j]->getPosition()[k]);
-				soc *= (getBestInSwarmPos()[k] - swarm[j]->getPosition()[k]);
+				soc *= (swarm.getBestInSwarmPos()[k] - swarm[j]->getPosition()[k]);
 				newVelocity[k] = wei + cog + soc;
 				/**
 				 * update particle positions based on new
@@ -69,43 +69,16 @@ void PSO::performPSO() {
 }
 
 /**
- * method to find the best global position and fitness
- * essentially just a driver for submethods
- */
-void PSO::findBestInRun() {
-	// zero indexed swarm, assume first is best (likely overwritten later)
-	int tempIndex = 0;
-	// likewise a temporary best fitness
-	double tempBest = swarm[0]->getFitness();
-	for (unsigned int j = 0; j < swarm.getSwarmSize(); j++) {
-		// if new best is found
-		if (swarm[j]->getFitness() < tempBest) {
-			// update it
-			tempBest = swarm[j]->getFitness();
-			// and store its index
-			tempIndex = j;
-		}
-	}
-	// if the best found earlier is better than previous swarm best
-	if (tempBest < getBestInSwarmFit()) {
-		// overwrite swarm best fitness and position
-		setBestInSwarmPos(swarm[tempIndex]->getPosition());
-		setBestInSwarmFit(tempBest);
-	}
-}
-
-/**
  * method to display the best in epoch iteration
  * @param i - the iteration
  */
 void PSO::bestInRun(unsigned int i) {
 	double avg = 0.00;
-	for (int j = 0; j < swarm.getSwarmSize(); j++) {
+	for (unsigned int j = 0; j < swarm.getSwarmSize(); j++) {
 		avg += swarm[j]->getFitness();
 	}
 	avg /= swarm.getSwarmSize();
-	// (used to make graphs) std::cout << i << " " << getBestInSwarmFit() << " " << avg << std::endl;
-	std::cout << "Epoch " << i << ": best fitness is " << getBestInSwarmFit() << ", avg is " << avg << std::endl;
+	std::cout << "Epoch " << i << ": best fitness is " << swarm.getBestInSwarmFit() << ", average is " << avg << std::endl;
 }
 
 /**
@@ -128,9 +101,3 @@ unsigned int PSO::getIterations() { return iterations; }
 double PSO::getWeight() { return weight; }
 double PSO::getCogAcc() { return cogAcc; }
 double PSO::getSocAcc() { return socAcc; }
-double PSO::getBestInSwarmFit() { return bestInSwarmFit; }
-std::array<double, 30> PSO::getBestInSwarmPos() { return bestInSwarmPos; }
-
-// setter methods
-void PSO::setBestInSwarmFit(double f) { bestInSwarmFit = f; }
-void PSO::setBestInSwarmPos(std::array<double, 30> p) { bestInSwarmPos = p; }

@@ -8,7 +8,7 @@
 class RandSearch {
 	private:
 		// RandSearch class attribute
-		Swarm particleList; // the particle list
+		Swarm swarm; // the particle list
 	public:
 		RandSearch(unsigned int, int); // constructor
 		
